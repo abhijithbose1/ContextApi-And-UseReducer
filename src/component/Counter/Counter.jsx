@@ -1,68 +1,10 @@
 import React, { useReducer } from "react";
 // import { useState } from "react";
 import "./Counter.css";
+import { counterReducer } from "./CounterReducer";
 
 export const Counter = () => {
-    const counterReducer = (state, action) => {
-        switch (action.type) {
-            case "decrement":
-                if (state.count > 0) {
-                    const newcount = state.count - 1;
-                    return {
-                        count: newcount,
-                    };
-                } else {
-                    return {
-                        count: state.count,
-                    };
-                }
-
-            case "increment":
-                if (state.count <= 99) {
-                    const newCount = state.count + 1;
-                    return {
-                        count: newCount,
-                    };
-                } else {
-                    return {
-                        count: state.count,
-                    };
-                }
-
-            case "incrementBy":
-                if (state.count <= 90) {
-                    const newCount = state.count + action.value;
-                    return {
-                        count: newCount,
-                    };
-                } else {
-                    return {
-                        count: state.count,
-                    };
-                }
-
-            case "reset":
-                return {
-                    count: 0,
-                };
-
-            case "decrementBy":
-                if (state.count >= 5) {
-                    const newCount = state.count - action.value;
-                    return {
-                        count: newCount,
-                    };
-                } else {
-                    return {
-                        count: state.count,
-                    };
-                }
-
-            default:
-                return state;
-        }
-    };
-
+   
     const [state, dispatch] = useReducer(counterReducer, {
         count: 0,
     });
