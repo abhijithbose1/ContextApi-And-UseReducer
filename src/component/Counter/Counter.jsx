@@ -1,5 +1,4 @@
 import React, { useReducer } from "react";
-// import { useState } from "react";
 import "./Counter.css";
 import { counterReducer } from "./CounterReducer";
 
