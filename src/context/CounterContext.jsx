@@ -1,34 +1,50 @@
-import { Children, createContext } from "react";
+import { Children, createContext, useReducer } from "react";
 
 export const CounterContext = createContext();
 
-export const CounterProvider = ({children})=>{
+export const counterReducer = (state, action) => {
+    switch (action.type) {
+        case "increment":
+            if (state.count < 100) {
+                const newCount = state.count + 1;
+                return {
+                    count: newCount,
+                };
+            }
+            return state;
+        case "decrement":
+            if (state.count > 0) {
+                const newCount = state.count - 1;
+                return {
+                    count: newCount,
+                };
+            }
+            return state;
+        case "reset":
+            return {
+                count: 0,
+            };
+        case "incrementBy":
+            if (state.count <= 100 - action.value) {
+                return {
+                    count: state.count + action.value,
+                };
+            }
+            return state;
+        case "decrementBy":
+            if (state.count >= 0 + action.value) {
+                return {
+                    count: state.count - action.value,
+                };
+            }
+            return state;
+        default:
+            return state;
+    }
+};
 
-    const [count, setCount] = useState(0);
+export const CounterProvider = ({ children }) => {
+    const [state, dispatch] = useReducer(counterReducer, { count: 0 });
 
-    const onDecrement = () => {
-        if (count > 0) {
-            setCount((prev) => prev - 1);
-        }
-    };
-    const onIncrement = () => {
-        if (count <= 99) {
-            setCount((prev) => prev + 1);
-        }
-    };
-    const onReset = () => {
-        setCount(0);
-    };
-    const onIncrementBy = (value) => {
-        if (count <= 90) {
-            setCount((prev) => prev + value);
-        }
-    };
-    const onDecrementBy = (value) => {
-        if (count >= 5) {
-            setCount((prev) => prev - value);
-        }
-    };
-
-    return <CounterContext.Provider value={{count, onDecrement, onIncrement , onReset , onIncrementBy , onDecrementBy}}>{children}</CounterContext.Provider>
-}
+    return <CounterContext.Provider value={{ state, dispatch }}>{children}</CounterContext.Provider>;
+};

@@ -5,39 +5,39 @@ import "./Counter.css";
 
 export const Counter = () => {
     
-    const {count, onDecrement, onIncrement , onReset , onIncrementBy , onDecrementBy} = useContext(CounterContext);
+    const {state, dispatch} = useContext(CounterContext);
 
     return (
         <div className="counter-container">
             <div className="loading-container">
-                <p> {count}</p>
+                <p> {state.count}</p>
                 <div
                     className="loading"
                     style={{
-                        height: 3 * count,
+                        height: 3 * state.count,
                         background:
-                            count < 60
+                            state.count < 60
                                 ? "green"
-                                : count >= 60 && count <= 75
+                                : state.count >= 60 && state.count <= 75
                                 ? "rgb(255, 162, 0)"
-                                : count > 75 && count < 90
+                                : state.count > 75 && state.count < 90
                                 ? "orangered"
                                 : "red",
                     }}
                 ></div>
             </div>
             <div className="buttons">
-                <button onClick={() => onDecrementBy(5)}>Decrement By 5</button>
-                <button onClick={onDecrement} style={{ fontSize: "25px" }}>
+                <button onClick={() => dispatch({type : "decrementBy", value: 5})}>Decrement By 5</button>
+                <button onClick={()=>dispatch({type : "decrement"})} style={{ fontSize: "25px" }}>
                     -
                 </button>
-                <button onClick={onReset} style={{ background: "rgb(226, 36, 36)" , fontSize:"14px"}}>
+                <button onClick={()=>dispatch({type : "reset"})} style={{ background: "rgb(226, 36, 36)" , fontSize:"14px"}}>
                     Reset
                 </button>
-                <button onClick={onIncrement} style={{ fontSize: "25px" }}>
+                <button onClick={()=>dispatch({type : "increment"})} style={{ fontSize: "25px" }}>
                     +
                 </button>
-                <button onClick={() => onIncrementBy(10)}>Increment By 10</button>
+                <button onClick={() =>dispatch({type : "incrementBy", value : 10})}>Increment By 10</button>
             </div>
         </div>
     );
