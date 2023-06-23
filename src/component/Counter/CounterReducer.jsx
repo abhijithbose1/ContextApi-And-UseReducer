@@ -7,6 +7,7 @@ export const counterReducer = (state, action) => {
                     count: newCount,
                 };
             }
+            return state;
         case "decrement":
             if (state.count > 0) {
                 const newCount = state.count - 1;
@@ -14,6 +15,7 @@ export const counterReducer = (state, action) => {
                     count: newCount,
                 };
             }
+            return state;
         case "reset":
             return {
                 count: 0,
@@ -24,13 +26,14 @@ export const counterReducer = (state, action) => {
                     count: state.count + action.value,
                 };
             }
+            return state;
         case "decrementBy":
             if (state.count >= 0 + action.value) {
                 return {
                     count: state.count - action.value,
                 };
             }
-
+            return state;
         default:
             return state;
     }
