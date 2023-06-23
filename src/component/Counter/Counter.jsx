@@ -1,33 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
+import { CounterContext } from "../../context/CounterContext";
 import "./Counter.css";
 
 export const Counter = () => {
-    const [count, setCount] = useState(0);
-
-    const onDecrement = () => {
-        if (count > 0) {
-            setCount((prev) => prev - 1);
-        }
-    };
-    const onIncrement = () => {
-        if (count <= 99) {
-            setCount((prev) => prev + 1);
-        }
-    };
-    const onReset = () => {
-        setCount(0);
-    };
-    const onIncrementBy = (value) => {
-        if (count <= 90) {
-            setCount((prev) => prev + value);
-        }
-    };
-    const onDecrementBy = (value) => {
-        if (count >= 5) {
-            setCount((prev) => prev - value);
-        }
-    };
+    
+    const {count, onDecrement, onIncrement , onReset , onIncrementBy , onDecrementBy} = useContext(CounterContext);
 
     return (
         <div className="counter-container">
